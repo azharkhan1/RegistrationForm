@@ -2,7 +2,7 @@ var userPasswords = ["azhar"]
 var userEmail = ["azharkhan@gmail.com"];
 var usersArr = ["azhar"];
 var currentUsername = "";
-
+var currIndex;
 
 const signup = () => {
 
@@ -16,7 +16,7 @@ const signup = () => {
         userEmail.push(email);
         userPasswords.push(password);
         usersArr.push(user);
-        console.log(usersArr);
+        localStorage.setItem("user", JSON.stringify(usersArr));
         localStorage.setItem("userPasswords", JSON.stringify(userPasswords));
         localStorage.setItem("userEmail", JSON.stringify(userEmail));
         window.location.href = "login.html"
@@ -28,25 +28,41 @@ const signup = () => {
     return false;
 }
 
-   
+
+userEmail = JSON.parse(localStorage.getItem("userEmail"));
+userPasswords = JSON.parse(localStorage.getItem("userPasswords"));
+usersArr = JSON.parse(localStorage.getItem("usersArr"));
 
 
 const check = () => {
 
-
-    var passsword = document.getElementById("password").value;
+    var password = document.getElementById("password").value;
     var email = document.getElementById("email").value;
 
-    if (userPasswords.indexOf(passsword) === -1 || userEmail.indexOf(email) === -1) {
+    if (userPasswords.indexOf(password) === -1 || userEmail.indexOf(email) === -1) {
         alert("Wrong Password or email");
         console.log("ye wala chalrha hai");
-        var i = indexOf(password);
-        console.log(i);
+
     }
     else {
-        alert("logged in succesfully")
-        window.location.href = "index.html";
+        currIndex = userEmail.indexOf(email);
+        localStorage.setItem("currIndex", JSON.stringify(currIndex));
+        window.location.href = "dashboard.html";
+       
     }
     return false;
 }
 
+
+
+const loginSuccess = () => {
+    currIndex = localStorage.getItem("currIndex");
+    currIndex = parseInt(currIndex);
+    console.log(currIndex);
+    document.getElementById("loginemail").innerHTML = userEmail[currIndex];
+    document.getElementById("name").innerHTML = usersArr[currIndex];
+}
+
+const logout = ()=>{
+        window.location.href="login.html";
+}
