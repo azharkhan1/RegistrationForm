@@ -47,6 +47,7 @@ const check = () => {
     else {
         currIndex = userEmail.indexOf(email);
         localStorage.setItem("currIndex", JSON.stringify(currIndex));
+        alert("logged in successfully");
         window.location.href = "dashboard.html";
        
     }
