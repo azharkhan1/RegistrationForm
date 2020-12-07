@@ -37,7 +37,7 @@ const check = () => {
     var passsword = document.getElementById("password").value;
     var email = document.getElementById("email").value;
 
- if (userPasswords.indexOf(passsword)===-1 && userEmail.indexOf(email)===-1)
+ if (userPasswords.indexOf(passsword)===-1 || userEmail.indexOf(email)===-1)
  {
     alert("Wrong Password or email");
     console.log("ye wala chalrha hai");
