@@ -76,3 +76,4 @@ const loginSuccess = () => {
 const logout = () => {
     window.location.href = "login.html";
 }
+// DONE WITH IT
