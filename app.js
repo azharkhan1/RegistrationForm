@@ -1,6 +1,6 @@
-var userPasswords = ["azhar"]
-var userEmail = ["azharkhan@gmail.com"];
-var usersArr = ["azhar"];
+var userPasswords = ["azhar", "123"]
+var userEmail = ["azharkhan@gmail.com", "naveedbhai@gmail.com"];
+var usersArr = ["azhar", "naveedbhai"];
 var currentUsername = "";
 var currIndex;
 
@@ -16,9 +16,9 @@ const signup = () => {
         userEmail.push(email);
         userPasswords.push(password);
         usersArr.push(user);
-        localStorage.setItem("user", JSON.stringify(usersArr));
-        localStorage.setItem("userPasswords", JSON.stringify(userPasswords));
         localStorage.setItem("userEmail", JSON.stringify(userEmail));
+        localStorage.setItem("userPasswords", JSON.stringify(userPasswords));
+        localStorage.setItem("usersArr", JSON.stringify(usersArr));
         window.location.href = "login.html"
     }
 
@@ -29,41 +29,50 @@ const signup = () => {
 }
 
 
-userEmail = JSON.parse(localStorage.getItem("userEmail"));
-userPasswords = JSON.parse(localStorage.getItem("userPasswords"));
-usersArr = JSON.parse(localStorage.getItem("usersArr"));
+
 
 
 const check = () => {
 
     var password = document.getElementById("password").value;
     var email = document.getElementById("email").value;
+    var index = false;
 
-    if (userPasswords.indexOf(password) === -1 || userEmail.indexOf(email) === -1) {
-        alert("Wrong Password or email");
-        console.log("ye wala chalrha hai");
+    for (let i = 0; i < userEmail.length; i++) {
+        if (email === userEmail[i]) {
+            index = i
+            localStorage.setItem("currIndex", JSON.stringify(index));
+            break;
+        }
+    }
+    if (index === false) {
+        alert("password or email not found");
+    }
+    else if (password === userPasswords[index]) {
+        alert("logged in successfully", index);
+        window.location.href = "dashboard.html";
 
     }
+
     else {
-        currIndex = userEmail.indexOf(email);
-        localStorage.setItem("currIndex", JSON.stringify(currIndex));
-        alert("logged in successfully");
-        window.location.href = "dashboard.html";
-       
+        alert("password or email not found");
     }
     return false;
 }
 
 
+userEmail = JSON.parse(localStorage.getItem("userEmail"));
+userPasswords = JSON.parse(localStorage.getItem("userPasswords"));
+usersArr = JSON.parse(localStorage.getItem("usersArr"));
+var index = JSON.parse(localStorage.getItem("currIndex"));
 
 const loginSuccess = () => {
-    currIndex = localStorage.getItem("currIndex");
-    currIndex = parseInt(currIndex);
-    console.log(currIndex);
-    document.getElementById("loginemail").innerHTML = userEmail[currIndex];
-    document.getElementById("name").innerHTML = usersArr[currIndex];
+    index = parseInt(index);
+    console.log(index);
+    document.getElementById("loginemail").innerHTML = userEmail[index];
+    document.getElementById("name").innerHTML = usersArr[index];
 }
 
-const logout = ()=>{
-        window.location.href="login.html";
+const logout = () => {
+    window.location.href = "login.html";
 }
