@@ -28,10 +28,6 @@ const signup = () => {
     return false;
 }
 
-
-
-
-
 const check = () => {
 
     var password = document.getElementById("password").value;
